@@ -48,10 +48,12 @@ def format_timedelta(delta):
 def main():
     '''main function that loops and asks for user input'''
     # TODO refactor so that user input is put into a function
+    clear = lambda: os.system('cls')
+
     while True:
         # clear terminal
-        clear = lambda: os.system('cls')
-        clear()
+        # clear()
+        print("enter 'quit' to quit the application")
 
         first_date, second_date = '', ''
 
@@ -62,7 +64,7 @@ def main():
 
         user_input = input('enter second date: ')
         if user_input == 'quit': break
-        elif get_date_from_string(user_input): 
+        elif get_date_from_string(user_input) is not False: 
             second_date = get_date_from_string(user_input)
 
         
@@ -76,4 +78,5 @@ def main():
             input('press enter to restart')
             break
 
-main()
+    if __name__ == '__main__':
+        main()
