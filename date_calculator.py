@@ -11,9 +11,10 @@ def get_date_from_string(date_input):
     # TODO add shortcuts for common dates (e.g. before Christmas and end 
     #   of financial year)
 
+    only_day_month = False
+
     # split date input to count how many elements the user input
     input_list = date_input.split('/')
-    only_day_month = False
 
     # add current year if input doesn't mention it
     if len(input_list) == 2:
@@ -24,7 +25,7 @@ def get_date_from_string(date_input):
         date_object = datetime.strptime(date_input, "%d/%m/%Y")
         if only_day_month:
             if date_object < datetime.now():
-                date_object.replace(year = date_object.year + 1)
+                date_object = date_object.replace(year=2022)
     except ValueError:
         return False
     else:
@@ -58,11 +59,11 @@ def main():
 
     # clear terminal (called in main loop)
     clear = lambda: os.system('cls')
-    user_input = ''
-
 
     while True:
         clear()
+        user_input = ''
+
 
         print("enter 'quit' to quit the application")
 
@@ -105,8 +106,8 @@ def main():
             print(format_timedelta(delta))
 
 
-        # resets user_input before restarting loop
-        user_input = ''
+        # # resets user_input before restarting loop
+        # user_input = ''
 
         while True:
             input('press enter to restart')
