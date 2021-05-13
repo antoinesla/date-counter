@@ -1,10 +1,10 @@
-import datetime
+from datetime import datetime
 import os
 
 def get_date_from_string(date_input):
     '''
     returns False if input is not a date, 
-    otherwise returns input as date time object
+    otherwise returns input as datetime object
     '''
     # TODO consider that date input without year before the current date is 
     #   next year
@@ -13,11 +13,18 @@ def get_date_from_string(date_input):
 
     # split date input to count how many elements the user input
     input_list = date_input.split('/')
-    # add current year if input doesnt mention it
-    if len(input_list) == 2 :
-        date_input += f'/{datetime.datetime.now().year}'
+    only_day_month = False
+
+    # add current year if input doesn't mention it
+    if len(input_list) == 2:
+        date_input += f'/{datetime.now().year}'
+        only_day_month = True
+    
     try:
-        date_object = datetime.datetime.strptime(date_input, "%d/%m/%Y")
+        date_object = datetime.strptime(date_input, "%d/%m/%Y")
+        if only_day_month:
+            if date_object < datetime.now():
+                date_object.replace(year = date_object.year + 1)
     except ValueError:
         return False
     else:
@@ -85,11 +92,18 @@ def main():
         if user_input == 'quit': break
 
 
-        if first_date != second_date:
-            delta = second_date - first_date
-            print(format_timedelta(delta))
-        else:
+        if first_date == second_date:
             print('these are the same dates')
+        elif first_date > second_date:
+            print(f'start of therapy: {first_date}')
+            print(f'end of therapy: {second_date}')
+            print('first date is further in the futur than second date')
+        else:
+            delta = second_date - first_date
+            print(f'start of therapy: {first_date}')
+            print(f'end of therapy: {second_date}')
+            print(format_timedelta(delta))
+
 
         # resets user_input before restarting loop
         user_input = ''

@@ -11,8 +11,8 @@ class TestDateCalculator(unittest.TestCase):
         passes correctly formatted date with two arguments and see if it 
         returns the correct datetime object
         '''
-        date_string = '12/05'
-        correct_date_object = datetime.datetime(2021,5,12)
+        date_string = '12/06'
+        correct_date_object = datetime.datetime(2021,6,12)
 
         test_date_object = date_calculator.get_date_from_string(date_string)
         self.assertEqual(test_date_object, correct_date_object)
@@ -39,6 +39,18 @@ class TestDateCalculator(unittest.TestCase):
         not_date_string = '654 enft 54'
         test_date_object = date_calculator.get_date_from_string(not_date_string)
         self.assertFalse(test_date_object)
+
+    def test_2_args_for_next_year(self):
+        '''
+        passes a string with only day and month that should return a
+        datetime object with year + 1
+        '''
+
+        date_string = '12/05'
+        correct_date_object = datetime.datetime(2022,5,12)
+
+        test_date_object = date_calculator.get_date_from_string(date_string)
+        self.assertEqual(test_date_object, correct_date_object)
 
 
 if __name__ == '__main__':
