@@ -48,35 +48,55 @@ def format_timedelta(delta):
 def main():
     '''main function that loops and asks for user input'''
     # TODO refactor so that user input is put into a function
+
+    # clear terminal (called in main loop)
     clear = lambda: os.system('cls')
+    user_input = ''
+
 
     while True:
-        # clear terminal
-        # clear()
+        clear()
+
         print("enter 'quit' to quit the application")
 
         first_date, second_date = '', ''
 
-        user_input = input('enter first date: ')
-        if user_input == 'quit': break
-        elif get_date_from_string(user_input): 
-            first_date = get_date_from_string(user_input)
-
-        user_input = input('enter second date: ')
-        if user_input == 'quit': break
-        elif get_date_from_string(user_input) is not False: 
-            second_date = get_date_from_string(user_input)
-
+        while not get_date_from_string(user_input):
+            user_input = input('enter first date: ')
+            if get_date_from_string(user_input): 
+                first_date = get_date_from_string(user_input)
+            elif user_input == 'quit':
+                break
+            else:
+                print('incorrect date')
         
+        if user_input == 'quit': break
+
+        user_input = ''
+        while not get_date_from_string(user_input):
+            user_input = input('enter second date: ')
+            if get_date_from_string(user_input): 
+                second_date = get_date_from_string(user_input)
+            elif user_input == 'quit':
+                break
+            else:
+                print('incorrect date')
+
+        if user_input == 'quit': break
+
+
         if first_date != second_date:
             delta = second_date - first_date
             print(format_timedelta(delta))
         else:
             print('these are the same dates')
 
+        # resets user_input before restarting loop
+        user_input = ''
+
         while True:
             input('press enter to restart')
             break
 
-    if __name__ == '__main__':
-        main()
+if __name__ == '__main__':
+    main()
