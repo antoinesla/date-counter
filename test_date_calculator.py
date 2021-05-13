@@ -11,7 +11,7 @@ class TestDateCalculator(unittest.TestCase):
         passes correctly formatted date with two arguments and see if it 
         returns the correct datetime object
         '''
-        date_string = '12/05/2021'
+        date_string = '12/05'
         correct_date_object = datetime.datetime(2021,5,12)
 
         test_date_object = date_calculator.get_date_from_string(date_string)
@@ -22,7 +22,7 @@ class TestDateCalculator(unittest.TestCase):
         passes correctly formatted date with three arguments and see if it 
         returns the correct datetime object
         '''
-        date_string = '12/05'
+        date_string = '12/05/2021'
         correct_date_object = datetime.datetime(2021,5,12)
 
         test_date_object = date_calculator.get_date_from_string(date_string)
